@@ -1,0 +1,48 @@
+﻿<Page x:Class="WPF_SBAR.AppWindows.ShowWindows.ShowProducts"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPF_SBAR.AppWindows.ShowWindows"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="510.781"
+      Title="Список товаров" >
+	
+	<DockPanel KeyDown="DockPanel_KeyDown">
+		<StackPanel Background="#FFA9B6B6" DockPanel.Dock="Top">
+		<TextBlock FontSize="18" HorizontalAlignment="Center">Список товаров (F2-добавить новый товар)</TextBlock>
+			<WrapPanel Margin="5" >
+			<Label FontSize="12">Группа товаров</Label>
+				<TextBox Name="GroupTextBox" HorizontalContentAlignment="Center" Width="66" FontSize="14" TextChanged="GroupTextBox_TextChanged"></TextBox>
+			<Button Click="Button_Click" Width="80" FontSize="12" Margin="10,1,10,0">Обзор групп
+			</Button>
+				
+			</WrapPanel>
+			<WrapPanel Margin="5" >
+				<Label FontSize="12">Поиск по названию товара:</Label>
+				
+				<TextBox Name="SerchTextBox" HorizontalContentAlignment="Center" Width="233" FontSize="14" TextChanged="SerchTextBox_TextChanged"/>
+			</WrapPanel>
+		</StackPanel>
+			<ScrollViewer >
+				<DataGrid Name="ProductDataGrid" TabIndex="0" ItemsSource="{Binding}" Background="#FFF9F996" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="False">
+				
+				<DataGrid.ContextMenu >
+					<ContextMenu Background="#FF857E7B">
+						<TextBlock Name="ChengeProductTextBlock" MouseDown="ChengeProductTextBlock_MouseDown" FontSize="12"  Foreground="#FFF0E0E0">Изменить</TextBlock>
+
+					</ContextMenu>
+
+				</DataGrid.ContextMenu>
+				<DataGrid.Columns >
+					<DataGridTextColumn Width="200" Header="Штрих-код" Binding="{Binding barcode}" IsReadOnly="True"/>
+					<DataGridTextColumn Width="100" Header="Код группы" Binding="{Binding groupID}" IsReadOnly="True"/>
+					<DataGridTextColumn Width="100" Header="Код товара" Binding="{Binding productID}" IsReadOnly="True" />
+					<DataGridTextColumn Width="300" Header="Название товара" Binding="{Binding productTitle}" IsReadOnly="True" />
+
+				</DataGrid.Columns>
+			</DataGrid>
+			</ScrollViewer>
+			
+	</DockPanel>
+</Page>

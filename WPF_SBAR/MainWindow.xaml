@@ -1,0 +1,99 @@
+﻿<Window x:Class="WPF_SBAR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:local="clr-namespace:WPF_SBAR"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+		
+        mc:Ignorable="d"
+        Title="MainWindow"  x:Name="MWindow"
+		ResizeMode="CanResize"  MinHeight="500" MinWidth="900"
+		WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded" Closed="MWindow_Closed">
+
+	<Grid>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition x:Name="SideBarColumn" Width="200"/>
+			<ColumnDefinition x:Name="Content" Width="199*"/>
+		</Grid.ColumnDefinitions>
+		<StackPanel x:Name="SideBarWrapper" Background="#FF464646" Grid.Column="0" >
+
+			<DockPanel>
+				<DockPanel.Resources>
+					<Style x:Key="TextBlockStyle" TargetType="TextBlock">
+						<Setter Property="Foreground" Value="White" ></Setter>
+						<Setter Property="FontSize" Value="15" ></Setter>
+
+					</Style>
+
+				</DockPanel.Resources>
+				<TextBlock x:Name="MenuTextBlock" Style="{StaticResource TextBlockStyle}" Width="125" Padding="4,0,0,0">Base Manegment</TextBlock>
+				<TextBlock x:Name="BarButton" Style="{StaticResource TextBlockStyle}" Text="&#x2630;" Width="33" TextAlignment="Center" HorizontalAlignment="Right" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseDown="TextBlock_MouseDown" Margin="0,0,0,0" Background="#FF464646"  >
+					<TextBlock.Triggers>
+						<EventTrigger RoutedEvent="MouseEnter" >
+							<BeginStoryboard>
+								<Storyboard>
+									<ColorAnimation 
+                                        Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)"
+                                        To="#FF686868"
+                                        Duration="00:00:0.2"
+                                        />
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+						<EventTrigger RoutedEvent="MouseLeave" >
+							<BeginStoryboard>
+								<Storyboard>
+									<ColorAnimation 
+                                        Storyboard.TargetProperty="(TextBlock.Background).(SolidColorBrush.Color)"
+                                        To="#FF464646"
+                                        Duration="00:00:0.2"
+                                        />
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</TextBlock.Triggers>
+				</TextBlock>
+			</DockPanel>
+			<Expander Style="{StaticResource SideAnimatedExpander}" IsExpanded="False" Foreground="#FFA2A2A2" Expanded="Expander_Expanded" Collapsed="Expander_Collapsed" Loaded="Expander_Loaded">
+				<Expander.Header>
+					<Label Foreground="White" >Справочники</Label>
+				</Expander.Header>
+				<StackPanel>
+					<StackPanel.Resources>
+						<Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockHover}" >
+							
+						</Style>
+					</StackPanel.Resources>
+					<TextBlock x:Name="GroupTextBlock" MouseDown="GroupTextBlock_MouseDown" >Группы</TextBlock>
+					<TextBlock x:Name="ProductsTextBlock" MouseDown="ProductsTextBlock_MouseDown">Товары</TextBlock>
+					<TextBlock x:Name="SuppliersTextBlock" MouseDown="SuppliersTextBlock_MouseDown">Поставщики</TextBlock>
+					<TextBlock x:Name="ContactsTextBlock" MouseDown="ContactsTextBlock_MouseDown">Контакты</TextBlock>
+					<TextBlock x:Name="DepartmentsTextBlock" MouseDown="DepartmentsTextBlock_MouseDown">Подразделения</TextBlock>
+					<TextBlock x:Name="EmployeesTextBlock" MouseDown="EmployeesTextBlock_MouseDown">Сотрудники</TextBlock>
+				</StackPanel>
+			</Expander>
+			<Expander Style="{StaticResource SideAnimatedExpander}" IsExpanded="False" Foreground="#FFA2A2A2" Expanded="Expander_Expanded" Collapsed="Expander_Collapsed" Loaded="Expander_Loaded">
+				<Expander.Header>
+					<Label Foreground="White" >Накладные</Label>
+				</Expander.Header>
+				<StackPanel>					
+					<StackPanel.Resources>
+						<Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockHover}" >
+						</Style>
+					</StackPanel.Resources>
+					<TextBlock x:Name="InPutTextBlock" MouseDown="InPutTextBlock_MouseDown">Приходные</TextBlock>
+					<TextBlock x:Name="OutPutTextBlock" MouseDown="OutPutTextBlock_MouseDown">Расходные</TextBlock>
+					<TextBlock x:Name="UndistributedTextBlock" MouseDown="UndistributedTextBlock_MouseDown">Нераспределенные</TextBlock>
+				</StackPanel>
+			</Expander>
+
+		</StackPanel>
+		<ScrollViewer x:Name="ContentContainer" Grid.Column="1" CanContentScroll="False" Background="#FFCFCFCF">
+			<!--<TextBlock x:Name="LogoutTextBlock"></TextBlock>-->
+		</ScrollViewer>
+
+	</Grid>
+</Window>

@@ -1,0 +1,55 @@
+﻿<Window x:Class="WPF_SBAR.AppWindows.ShowWindows.ShowContactWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_SBAR.AppWindows.ShowWindows"
+        mc:Ignorable="d"
+        Title="Контакты" MinHeight="300" MinWidth="600" Closed="Window_Closed">
+	<DockPanel Name="MainContactsDockPanel" >
+		<StackPanel DockPanel.Dock="Top">
+			<Label  FontSize="18" HorizontalContentAlignment="Center">Контакты</Label>
+			<WrapPanel Margin="5,0,5,5">
+				<Label FontSize="12">Поиск по компании</Label>
+				<TextBox Name="SerchByCompanyNameTextBox" Margin="67,0,0,0" TextChanged="SerchByCompanyNameTextBox_TextChanged" Width="448" FontSize="12"></TextBox>
+			</WrapPanel>
+			<WrapPanel Margin="5">
+				<Label FontSize="12">Поиск по фамилии сотрудника:</Label>
+				<TextBox Name="SerchByEmployeeLastNameTextBox" TextChanged="SerchByEmployeeLastNameTextBox_TextChanged" Width="448" FontSize="12"></TextBox>
+			</WrapPanel>
+			<WrapPanel Margin="5">
+				<Label FontSize="12">Поиск по контакту</Label>
+				<TextBox Name="SerchByContactVelueTextBox" Margin="72,0,0,0" TextChanged="SerchByContactVelueTextBox_TextChanged" Width="448" FontSize="12"></TextBox>
+			</WrapPanel>
+			<WrapPanel Margin="5">
+				<Label FontSize="12">Поиск по типу контакта</Label>
+				<ComboBox Name="SerchByContactTypeComboBox" Margin="42,0,0,5" SelectionChanged="SerchByContactTypeComboBox_SelectionChanged" Width="448" FontSize="12"></ComboBox>
+			</WrapPanel>
+		</StackPanel>
+
+		<ScrollViewer  Margin="5">
+
+			<DataGrid Name="ContactsDataGrid"  ItemsSource="{Binding}" Background="#FFF9F996" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" >
+				<DataGrid.ContextMenu >
+					<ContextMenu Background="#FF857E7B">
+						
+						<TextBlock Name="ChengeContactTextBlock" MouseDown="ChengeContactTextBlock_MouseDown" FontSize="12"  Foreground="#FFF0E0E0">Изменить контакт</TextBlock>
+					</ContextMenu>
+
+				</DataGrid.ContextMenu>
+				<DataGrid.Columns >
+					<DataGridTextColumn Header="ID контакта" Binding="{Binding ContactID}" IsReadOnly="True" />
+					<DataGridTextColumn Header="Тип контакта" Binding="{Binding contactType}" IsReadOnly="True" />
+					<DataGridTextColumn Header="Имя сотрудника" Binding="{Binding firstName}" IsReadOnly="True"/>
+					<DataGridTextColumn Header="Фамилия сотрудника" Binding="{Binding lastName}" IsReadOnly="True" />
+					<DataGridTextColumn Header="Название компании" Binding="{Binding companyName}" IsReadOnly="True" />
+					<DataGridTextColumn Header="Контакт" Binding="{Binding contact}" IsReadOnly="True"/>
+					<DataGridTextColumn Header="Описание" Binding="{Binding description}" IsReadOnly="True" />
+					
+				</DataGrid.Columns>
+
+			</DataGrid>
+		</ScrollViewer>
+
+	</DockPanel>
+</Window>

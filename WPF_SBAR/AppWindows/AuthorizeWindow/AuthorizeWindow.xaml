@@ -1,0 +1,26 @@
+﻿<Window x:Class="WPF_SBAR.ApplicationWindows.AuthWindows.AuthorizeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_SBAR.ApplicationWindows.AuthWindows"
+        mc:Ignorable="d" KeyDown="Window_KeyDown"
+        Title="AuthorizeWindow" Height="171" Width="274" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <StackPanel Width="250">
+        <StackPanel.Resources>
+            <Style TargetType="TextBlock" >
+                <Setter Property="TextAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,10,0,0" />
+            </Style>
+        </StackPanel.Resources>
+        <TextBlock>Логин</TextBlock>
+        <TextBox TextAlignment="Center" TabIndex="0" x:Name="Login"></TextBox>
+        <TextBlock>Пароль</TextBlock>
+		<PasswordBox HorizontalContentAlignment="Center" TabIndex="1" x:Name="Password"></PasswordBox>
+        <WrapPanel HorizontalAlignment="Center">
+			<Button Width="120" TabIndex="2" Margin="0,10,5,0" Background="#FFFFA31E" Click="Button_Click">Войти</Button>
+			<Button TabIndex="3" x:Name="CloseApplicationButton" Width="120" Margin="5,10,0,0" Background="#FFFFA31E" Click="CloseApplicationButton_Click">Закрыть</Button>
+        </WrapPanel>
+        
+    </StackPanel>
+</Window>

@@ -1,0 +1,24 @@
+﻿<Window x:Class="WPF_SBAR.AppWindows.ShowWindows.AddSuppliersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_SBAR.AppWindows.ShowWindows"
+        mc:Ignorable="d"
+        Title="Добавление поставщика"  Height="185" Width="535"
+		MinHeight="185" MinWidth="520" ResizeMode="NoResize">
+	<StackPanel Background="#FFFBF8B3">
+		<WrapPanel Margin="10, 15, 10, 5">
+			<Label FontSize="12">Название компании:</Label>
+			<TextBox Name="TitleTextBox" Width="384" FontSize="14"></TextBox>
+		</WrapPanel>
+		<WrapPanel Margin="10, 15, 10, 5">
+			<Label FontSize="12">Контактное лицо:</Label>
+			<TextBox Name="DescriptionTextBox" Margin="16,0,0,0" Width="384" FontSize="14"></TextBox>
+		</WrapPanel>
+		<WrapPanel Margin="10, 15, 10, 5">
+			<Button Name="OKButton" Click="OKButton_Click" FontSize="17" Margin="20, 5, 50, 10 " Width="170" Height="39">Добавить</Button>
+			<Button Name="CancelButton" Click="CancelButton_Click" FontSize="18" Margin="80, 5, 10, 10 " Width="170" Height="39">Отмена</Button>
+		</WrapPanel>
+	</StackPanel>
+</Window>

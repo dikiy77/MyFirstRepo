@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="105a3ca1527d4af496102603a8372108" Name="Diagram1">
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Contacts" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.ContactType" Width="1.5" PointX="0.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Departments" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Employees" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Encashment" Width="1.5" PointX="3" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Groups" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.InvoiceDetails" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Invoices" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.OrderDetails" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Orders" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.ProductByDepartment" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Products" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Revision" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.RevisionDetails" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Suppliers" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.UserRoles" Width="1.5" PointX="3.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmallBusinessDBModel.Users" Width="1.5" PointX="6" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Contacts_ContactType" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Contacts_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Contacts_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Encashment_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Orders_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_ProductByDepartment_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Revision_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Invoices_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Orders_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Users_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Products_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_InvoiceDetails_Invoices" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_InvoiceDetails_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Invoices_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_OrderDetails_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_ProductByDepartment_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_RevisionDetails_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_RevisionDetails_Revision" ManuallyRouted="false" />
+        <AssociationConnector Association="SmallBusinessDBModel.FK_Users_UserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
