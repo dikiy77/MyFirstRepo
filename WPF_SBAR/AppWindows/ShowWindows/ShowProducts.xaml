@@ -14,8 +14,7 @@
 			<WrapPanel Margin="5" >
 			<Label FontSize="12">Группа товаров</Label>
 				<TextBox Name="GroupTextBox" HorizontalContentAlignment="Center" Width="66" FontSize="14" TextChanged="GroupTextBox_TextChanged"></TextBox>
-			<Button Click="Button_Click" Width="80" FontSize="12" Margin="10,1,10,0">Обзор групп
-			</Button>
+			<Button Name="BrowseGroupButton" Click="Button_Click" Width="80" FontSize="12" Margin="10,1,10,0">Обзор групп</Button>
 				
 			</WrapPanel>
 			<WrapPanel Margin="5" >

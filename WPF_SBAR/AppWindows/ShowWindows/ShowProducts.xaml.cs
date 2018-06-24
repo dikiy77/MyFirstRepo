@@ -28,6 +28,24 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
             Page_Loaded(null, null);
         }//ShowProducts
 
+        public ShowProducts(short gp) {
+            InitializeComponent();
+            using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                try {
+                    GroupTextBox.Text = gp.ToString();
+                    productLict = context.Products.Where(p => p.groupID == gp).ToList();
+                    ProductDataGrid.ItemsSource = productLict;
+                    ProductDataGrid.SelectedIndex = 0;
+                    this.BrowseGroupButton.IsEnabled = false;
+                    GroupTextBox.IsReadOnly = true;
+                }//try
+                catch (Exception ex) {
+
+                    MessageBox.Show(ex.Message);
+                }//catch
+
+            }//using
+        }//ShowProducts
 
         //Контекстное меню изменение продукта
         private void ChengeProductTextBlock_MouseDown(object sender, MouseButtonEventArgs e) {

@@ -207,14 +207,7 @@ namespace WPF_SBAR
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
 
-            try {
-
-               // Authorize();
-
-            }//try
-            catch (Exception ex) {
-                App.Current.Shutdown(0);
-            }//catch
+           
 
         }//Window_Loaded
 
