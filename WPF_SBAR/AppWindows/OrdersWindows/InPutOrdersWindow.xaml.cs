@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using WPF_SBAR.Entity;
+using WPF_SBAR.AppWindows.ShowWindows;
 namespace WPF_SBAR.AppWindows.OrdersWindows {
     /// <summary>
     /// Логика взаимодействия для InPutOrdersWindow.xaml
@@ -22,12 +23,18 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
         List<InvoisesTemplate> invoicesList = null;
         Employees currentEmployeer;
         Invoices newInvoice;
+        List<OrderDeteilsView> detailsList = new List<OrderDeteilsView>();
+
         public InPutOrdersWindow(Employees em) {
             InitializeComponent();
-            OrderDatePicker.Text = DateTime.Now.ToShortDateString();
-            DateTime date = DateTime.Now;
             this.currentEmployeer = em;
-            date = DateTime.Parse("10.06.2018");
+            OrderDatePicker.Text = DateTime.Now.ToShortDateString();
+            LoadInvoices(DateTime.Now);
+        }
+
+        private void LoadInvoices(DateTime date) {
+            
+            //date = DateTime.Parse("10.06.2018");
 
             using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
                 invoicesList = (from i in context.Invoices
@@ -52,16 +59,18 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
                                                  select new {
                                                      quantity = id.quantity,
                                                      price = id.price
-                                                 }).Sum(s => (s.price*s.quantity))
-                                                 }).ToList();
-
+                                                 }).Sum(s => (s.price * s.quantity))
+                                }).ToList();
+               
                 InvoicesDataGrid.ItemsSource = invoicesList;
-                InvoicesDataGrid.SelectedIndex = 0;
-                if (InvoicesDataGrid.SelectedIndex != -1) {
-                    InvoicesDataGrid.Focus();
-                }
+                InvoicesDataGrid.Focus();
+                InvoicesDataGrid.SelectedIndex = invoicesList.Count - 1;
+                //if (InvoicesDataGrid.SelectedIndex != -1) {
+                //    InvoicesDataGrid.Focus();
+                //}
             }//using
         }
+
         private void ChengeTextBlock_MouseDown(object sender, MouseButtonEventArgs e) {
            
         }
@@ -76,6 +85,10 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
                 case Key.F2: {
                         CreateNewInvoiceWindow cniw = new CreateNewInvoiceWindow(this.currentEmployeer);
                         if(cniw.ShowDialog() == true) {
+
+                            this.detailsList.Clear();
+                            this.InvoiceNewDataGrid.Items.Refresh();
+
                             this.newInvoice = cniw.newInvoice;
                             try {
                                 using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
@@ -87,6 +100,7 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
                                     this.AddNewOrderRow.Height = this.MainOrdersShowRow.Height;
                                     this.MainOrdersShowRow.Height = new GridLength(0);
                                     AddNewProductRow.Height = new GridLength(130);
+                                    this.InvoiceNewDataGrid.ItemsSource = this.detailsList;
                                 }//using
 
                             }
@@ -154,9 +168,251 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
         }
 
         private void AddNewOrderDockPanel_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+               
+                case Key.Escape: {
+                        this.BarcodeTextBox.Text = "";
+                        this.GroupTextBox.Text = "";
+                        this.GroupTitleLabel.Content = "Выбери группу";
+                        this.ProductIDTextBox.Text = "";
+                        this.ProductTitleLabel.Content = "Выбери продукт";
+                        this.PriceTextBox.Text = "";
+                        this.QuantityTextBox.Text = "";
+                        this.SummTextBox.Text = "";
+                        this.AddNewProductRow.Height = new GridLength(0);
+                    }
+                    break;
+               
+
+            }
+        }
+
+        private void BarcodeTextBox_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+                case Key.Enter: {
+                        GroupTextBox.Focus();
+                    } break;
+                default: break;
+            }//switch
+
 
         }
 
+        private void GroupTextBox_KeyDown(object sender, KeyEventArgs e){
+            switch (e.Key) {
+                case Key.Enter: {
+                        if (!short.TryParse(this.GroupTextBox.Text, out short groupID)) {
+                            MessageBox.Show("Введите корректную группу!");
+                            this.GroupTextBox.Focus();
+                            return;
+                        }//if
 
+                        try {
+                            using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                                var group = context.Groups.FirstOrDefault(g => g.groupID == groupID);
+                                this.GroupTitleLabel.Content = (object)group.groupTitle;
+                            }//using
+                            ProductIDTextBox.Focus();
+                        }
+                        catch (Exception ex) {
+
+                            MessageBox.Show(ex.Message);
+                        }
+                       
+                    }
+                    break;
+                case Key.F1: {
+                        ShowGroupWindow sw = new ShowGroupWindow();
+                        if (sw.ShowDialog() == true) {
+                            this.GroupTextBox.Text = sw.number.ToString();
+                        }//if
+                        try {
+                            using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                                var group = context.Groups.FirstOrDefault(g => g.groupID == sw.number);
+                                this.GroupTitleLabel.Content = (object)group.groupTitle;
+                            }//using
+                            ProductIDTextBox.Focus();
+                        }
+                        catch (Exception ex) {
+
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+                default: break;
+            }//switch
+            
+        }
+
+        private void ProductIDTextBox_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+                case Key.Enter: {
+
+                        if (!int.TryParse(this.ProductIDTextBox.Text, out int prodID)) {
+                            MessageBox.Show("Введите корректный код!");
+                            this.ProductIDTextBox.Focus();
+                            return;
+                        }//if
+
+                        try {
+                            using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+
+                                this.ProductTitleLabel.Content = (object)context.Products.FirstOrDefault(g => g.productID == prodID).productTitle;
+                            }//using
+                            PriceTextBox.Focus();
+                        }
+                        catch (Exception ex) {
+
+                            MessageBox.Show(ex.Message);
+                        }
+                       
+                    }
+                    break;
+                case Key.F1: {
+                        if (!short.TryParse(this.GroupTextBox.Text, out short groupID)) {
+                            MessageBox.Show("Введите корректную группу!");
+                            this.GroupTextBox.Focus();
+                            return;
+                        }//if
+                        GetProductWindow gpw = new GetProductWindow(groupID);
+                        if (gpw.ShowDialog() == true) {
+                            this.ProductIDTextBox.Text = gpw.currentProduct.productID.ToString();
+                        }//if
+                        try {
+                            using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                                this.ProductTitleLabel.Content = (object)context.Products.FirstOrDefault(g => g.productID == gpw.currentProduct.productID).productTitle;
+                            }//using
+                            PriceTextBox.Focus();
+                        }
+                        catch (Exception ex) {
+
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    break;
+                default: break;
+            }//switch
+            
+        }
+
+        private void PriceTextBox_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+                case Key.Enter: {
+                        if (!decimal.TryParse(this.PriceTextBox.Text, out decimal price)) {
+                            this.PriceTextBox.Text = this.PriceTextBox.Text.Replace('.', ',');
+                            if (!decimal.TryParse(this.PriceTextBox.Text, out price)) {
+                                
+                                MessageBox.Show("Введите корректную цену!");
+                                return;
+                            }//if
+                        }//if
+                        QuantityTextBox.Focus();
+                    }
+                    break;
+                default: break;
+            }//switch
+
+            
+        }
+
+        private void QuantityTextBox_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+                case Key.Enter: {
+                       if(!decimal.TryParse(this.PriceTextBox.Text, out decimal price)) {
+                            this.PriceTextBox.Focus();
+                            MessageBox.Show("Введите корректную цену!");
+                            return;
+                        }//if
+
+                        if (!decimal.TryParse(this.QuantityTextBox.Text, out decimal quantity)) {
+
+                            QuantityTextBox.Text = this.QuantityTextBox.Text.Replace('.', ',');
+                            
+                            if (!decimal.TryParse(this.QuantityTextBox.Text, out quantity)) {
+                                
+                                MessageBox.Show("Введите корректное количество!");
+                                return;
+                            }//if
+                        }//if
+
+
+                        this.SummTextBox.Text = $"{(price * quantity):f2}";
+                        this.SummTextBox.Focus();
+                    }
+                    break;
+                default: break;
+            }//switch
+
+        }
+
+        private void SummTextBox_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+                case Key.Enter: {
+                        OrderDeteilsView newDetails = new OrderDeteilsView() {
+                            InvoiceID = this.newInvoice.invoiceID,
+                            ProductID = int.Parse(this.ProductIDTextBox.Text),
+                            Price = decimal.Parse(this.PriceTextBox.Text),
+                            Quantity = decimal.Parse(this.QuantityTextBox.Text),
+                            Barcode = this.BarcodeTextBox.Text,
+                            GroupID = short.Parse(this.GroupTextBox.Text),
+                            GroupTitle = (string)this.GroupTitleLabel.Content,
+                            ProductTitle = (string)this.ProductTitleLabel.Content,
+                            SummOfPosition = decimal.Parse(this.SummTextBox.Text)
+                        };
+                        this.detailsList.Add(newDetails);
+                        this.InvoiceNewDataGrid.Items.Refresh();
+                        this.SummOfInvoiceTextBox.Text = this.detailsList.Sum(d => d.SummOfPosition).ToString();
+
+                        this.BarcodeTextBox.Text = "";
+                        this.GroupTextBox.Text = "";
+                        this.GroupTitleLabel.Content = "Выбери группу";
+                        this.ProductIDTextBox.Text = "";
+                        this.ProductTitleLabel.Content = "Выбери продукт";
+                        this.PriceTextBox.Text = "";
+                        this.QuantityTextBox.Text = "";
+                        this.SummTextBox.Text = "";
+                        this.BarcodeTextBox.Focus();
+                    }
+                    break;
+                default: break;
+            }//switch
+        }
+
+        private void SaveInvoiceButton_Click(object sender, RoutedEventArgs e) {
+
+            try {
+                using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                    this.detailsList.ForEach(d => {
+
+                        InvoiceDetails dummy = new InvoiceDetails {
+                            invoiceID = d.InvoiceID,
+                            productID = d.ProductID,
+                            quantity = d.Quantity,
+                            price = d.Price
+                        };
+
+                        context.InvoiceDetails.Add(dummy);
+
+                    });
+
+                    context.SaveChanges();
+
+                    this.detailsList.Clear();
+
+                    this.LoadInvoices(this.newInvoice.date);
+
+                    this.MainOrdersShowRow.Height = this.AddNewOrderRow.Height;
+                    this.AddNewOrderRow.Height = new GridLength(0);
+                    AddNewProductRow.Height = new GridLength(0);
+                    
+
+                }//using
+                
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }//catch
+           
+        }
     }
 }

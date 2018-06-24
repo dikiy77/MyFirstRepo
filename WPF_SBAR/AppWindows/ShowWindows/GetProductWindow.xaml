@@ -1,0 +1,19 @@
+﻿<Window x:Class="WPF_SBAR.AppWindows.ShowWindows.GetProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_SBAR.AppWindows.ShowWindows"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Title="Выбор товара" Height="400" Width="600">
+	<DockPanel Background="#FFD1D1D1" KeyDown="DockPanel_KeyDown">
+		<WrapPanel DockPanel.Dock="Bottom">
+			<Button Name="OkButton"	Click="OkButton_Click" FontSize="16" Margin="50,10,150,10" Width="120" >Выбрать</Button>
+			<Button Name="CencelButton" Click="CencelButton_Click" FontSize="16" Margin="0,10,50,10" Width="120">Отмена</Button>
+		</WrapPanel>
+		<ScrollViewer Name="Container" DockPanel.Dock="Top">
+
+		</ScrollViewer>
+
+	</DockPanel>
+</Window>

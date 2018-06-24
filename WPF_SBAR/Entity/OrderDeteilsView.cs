@@ -20,7 +20,7 @@ namespace WPF_SBAR.Entity {
         public OrderDeteilsView() {
 
             this.Barcode = "Undefined";
-            this.InvoiceDetailsID = 0;
+           // this.InvoiceDetailsID = 0;
             this.InvoiceID = 0;
             this.ProductID = 0;
             this.Quantity = 0;
