@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Выбор группы" Height="600" Width="700" Loaded="Window_Loaded" 
 		WindowStartupLocation="CenterScreen">
-	<DockPanel Background="#FFC2C3AB">
-		<WrapPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center"  >
+	<DockPanel Background="#FFC2C3AB" KeyDown="DockPanel_KeyDown">
+		<WrapPanel DockPanel.Dock="Bottom"  HorizontalAlignment="Center"  >
 			<Button Name="OK" Click="OK_Click" Margin="0,0,30,5" Width="85">Выбрать</Button>
 			<Button Name="Cancel" Click="Cancel_Click"  Margin="30,0,0,5" Width="85">Отменить</Button>
 		</WrapPanel>

@@ -14,122 +14,122 @@
 			<RowDefinition Name="AddNewProductRow" Height="150*"/>
 		</Grid.RowDefinitions>
 		<DockPanel Name="MainDockPanel"  KeyDown="MainDockPanel_KeyDown" Grid.Row="0">
-		<StackPanel DockPanel.Dock="Top" >
-			<Label  FontSize="18" HorizontalContentAlignment="Center">Приходные накладные (F2-добавить новую накладную)</Label>
-			<WrapPanel Margin="5,0,0,5">
-				<Label FontSize="12">Поиск по дате</Label>
-				<DatePicker Name="OrderDatePicker" SelectedDateChanged="OrderDatePicker_SelectedDateChanged" HorizontalContentAlignment="Center" Width="182" FontSize="16" ></DatePicker>
-				<Label FontSize="12">Поиск по поставщику</Label>
-				<TextBox Name="SerchBySupplierNameTextBox"  HorizontalContentAlignment="Center"  Width="181" FontSize="12" ></TextBox>
-			</WrapPanel>
-			<WrapPanel Margin="5,0,0,5">
-				<Label FontSize="12">Поиск по номеру накладной</Label>
-				<TextBox Name="SerchByNumberOfOrderTextBox" HorizontalContentAlignment="Center" Width="68" FontSize="12" ></TextBox>
-				<Label FontSize="12">По номеру накладной поставщика</Label>
-				<TextBox Name="SerchByNumberOfOrderSupplierNameTextBox" HorizontalContentAlignment="Center"  Width="146" FontSize="12" ></TextBox>
-			</WrapPanel>
-			<WrapPanel Margin="5,0,0,5">
-				<Label FontSize="12">По дате оплаты</Label>
-				<DatePicker Name="PayDatePicker" HorizontalContentAlignment="Center" Width="106" FontSize="12" ></DatePicker>
-				<Label FontSize="12" Margin="20,0,0,0">Официально?</Label>
-				<CheckBox Name="OficialFlagCheckBox" VerticalAlignment="Center" ></CheckBox>
-				<Label FontSize="12" Margin="20,0,0,0">Оплачено?</Label>
-				<CheckBox Name="IsPayFlagCheckBox"  VerticalAlignment="Center" ></CheckBox>
-			</WrapPanel>
-		</StackPanel>
+			<StackPanel DockPanel.Dock="Top" >
+				<Label  FontSize="18" HorizontalContentAlignment="Center">Приходные накладные (F2-добавить новую накладную)</Label>
+				<WrapPanel Margin="5,0,0,5">
+					<Label FontSize="12">Поиск по дате</Label>
+					<DatePicker Name="OrderDatePicker" SelectedDateChanged="OrderDatePicker_SelectedDateChanged" HorizontalContentAlignment="Center" Width="182" FontSize="16" ></DatePicker>
+					<Label FontSize="12">Поиск по поставщику</Label>
+					<TextBox Name="SerchBySupplierNameTextBox"  HorizontalContentAlignment="Center"  Width="181" FontSize="12" ></TextBox>
+				</WrapPanel>
+				<WrapPanel Margin="5,0,0,5">
+					<Label FontSize="12">Поиск по номеру накладной</Label>
+					<TextBox Name="SerchByNumberOfOrderTextBox" HorizontalContentAlignment="Center" Width="68" FontSize="12" ></TextBox>
+					<Label FontSize="12">По номеру накладной поставщика</Label>
+					<TextBox Name="SerchByNumberOfOrderSupplierNameTextBox" HorizontalContentAlignment="Center"  Width="146" FontSize="12" ></TextBox>
+				</WrapPanel>
+				<WrapPanel Margin="5,0,0,5">
+					<Label FontSize="12">По дате оплаты</Label>
+					<DatePicker Name="PayDatePicker" HorizontalContentAlignment="Center" Width="106" FontSize="12" ></DatePicker>
+					<Label FontSize="12" Margin="20,0,0,0">Официально?</Label>
+					<CheckBox Name="OficialFlagCheckBox" VerticalAlignment="Center" ></CheckBox>
+					<Label FontSize="12" Margin="20,0,0,0">Оплачено?</Label>
+					<CheckBox Name="IsPayFlagCheckBox"  VerticalAlignment="Center" ></CheckBox>
+				</WrapPanel>
+			</StackPanel>
 
-		<ScrollViewer  Margin="5">
+			<ScrollViewer  Margin="5">				
 
-			<DataGrid Name="InvoicesDataGrid"  ItemsSource="{Binding}" Background="#FFF9F996" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="False" >
-				<DataGrid.ContextMenu >
-					<ContextMenu Background="#FF857E7B" Width="150" HorizontalContentAlignment="Center">
-						<TextBlock Name="ChengeTextBlock" MouseDown="ChengeTextBlock_MouseDown" FontSize="12"  Foreground="#FFF0E0E0">Изменить</TextBlock>
+				<DataGrid Name="InvoicesDataGrid" HorizontalContentAlignment="Right" ItemsSource="{Binding}" Background="#FFF9F996" CanUserAddRows="False" FontSize="14" AutoGenerateColumns="False" IsReadOnly="False" >
+					<DataGrid.ContextMenu >
+						<ContextMenu Background="#FF857E7B" Width="150" HorizontalContentAlignment="Center">
+							<TextBlock Name="ChengeTextBlock" MouseDown="ChengeTextBlock_MouseDown" FontSize="12"  Foreground="#FFF0E0E0">Изменить</TextBlock>
 
-					</ContextMenu>
+						</ContextMenu>
 
-				</DataGrid.ContextMenu>
-				<DataGrid.Columns >
-					<DataGridTextColumn MaxWidth="72" Binding="{Binding InvoiceID}" IsReadOnly="True">
-						<DataGridTextColumn.Header>
-							<TextBlock TextAlignment="Center">Номер<LineBreak/>накладной</TextBlock>
-						</DataGridTextColumn.Header>
-					</DataGridTextColumn>
+					</DataGrid.ContextMenu>
+					<DataGrid.Columns >
+						<DataGridTextColumn MaxWidth="72" Binding="{Binding InvoiceID}" IsReadOnly="True">
+							<DataGridTextColumn.Header>
+								<TextBlock TextAlignment="Center">Номер<LineBreak/>накладной</TextBlock>
+							</DataGridTextColumn.Header>
+						</DataGridTextColumn>
 
-					<DataGridTextColumn MaxWidth="79" Binding="{Binding SupplierID}" IsReadOnly="True">
-						<DataGridTextColumn.Header>
-							<TextBlock TextAlignment="Center">Код<LineBreak/>поставщика</TextBlock>
-						</DataGridTextColumn.Header>
-					</DataGridTextColumn>
+						<DataGridTextColumn MaxWidth="79" Binding="{Binding SupplierID}" IsReadOnly="True">
+							<DataGridTextColumn.Header>
+								<TextBlock TextAlignment="Center">Код<LineBreak/>поставщика</TextBlock>
+							</DataGridTextColumn.Header>
+						</DataGridTextColumn>
 
-					<DataGridTextColumn Header="Поставщик" Binding="{Binding CompanyName}" IsReadOnly="True" />
+						<DataGridTextColumn Header="Поставщик" Binding="{Binding CompanyName}" IsReadOnly="True" />
 
-					<DataGridTextColumn MaxWidth="79" Binding="{Binding Date}" IsReadOnly="True">
-						<DataGridTextColumn.Header>
-							<TextBlock TextAlignment="Center">Дата<LineBreak/>накладной</TextBlock>
-						</DataGridTextColumn.Header>
-					</DataGridTextColumn>
+						<DataGridTextColumn MaxWidth="79" Binding="{Binding Date}" IsReadOnly="True">
+							<DataGridTextColumn.Header>
+								<TextBlock TextAlignment="Center">Дата<LineBreak/>накладной</TextBlock>
+							</DataGridTextColumn.Header>
+						</DataGridTextColumn>
 
-					<DataGridTextColumn MaxWidth="79" Binding="{Binding InvoiceNumber}" IsReadOnly="True">
-						<DataGridTextColumn.Header>
-							<TextBlock TextAlignment="Center">Номер в <LineBreak/>накладной</TextBlock>
-						</DataGridTextColumn.Header>
-					</DataGridTextColumn>
+						<DataGridTextColumn MaxWidth="79" Binding="{Binding InvoiceNumber}" IsReadOnly="True">
+							<DataGridTextColumn.Header>
+								<TextBlock TextAlignment="Center">Номер в <LineBreak/>накладной</TextBlock>
+							</DataGridTextColumn.Header>
+						</DataGridTextColumn>
 
-					<DataGridTextColumn MaxWidth="79" Binding="{Binding PayToDate}" IsReadOnly="True">
-						<DataGridTextColumn.Header>
-							<TextBlock TextAlignment="Center">Дата<LineBreak/>оплаты</TextBlock>
-						</DataGridTextColumn.Header>
-					</DataGridTextColumn>
+						<DataGridTextColumn MaxWidth="79" Binding="{Binding PayToDate}" IsReadOnly="True">
+							<DataGridTextColumn.Header>
+								<TextBlock TextAlignment="Center">Дата<LineBreak/>оплаты</TextBlock>
+							</DataGridTextColumn.Header>
+						</DataGridTextColumn>
 
-					<DataGridTextColumn Header="Оплачено" Binding="{Binding Paid}" IsReadOnly="True" />
+						<DataGridTextColumn Header="Оплачено" Binding="{Binding Paid}" IsReadOnly="True" />
 
-					<DataGridTextColumn Header="Форма" Binding="{Binding Official}" IsReadOnly="True"/>
+						<DataGridTextColumn Header="Форма" Binding="{Binding Official}" IsReadOnly="True"/>
 
-					<DataGridTextColumn MaxWidth="79" Binding="{Binding Overhead}" IsReadOnly="True">
-						<DataGridTextColumn.Header>
-							<TextBlock TextAlignment="Center">Накладные<LineBreak/>расходы</TextBlock>
-						</DataGridTextColumn.Header>
-					</DataGridTextColumn>
-					<DataGridTextColumn Header="Сотрудник" Binding="{Binding EmployeeID}" IsReadOnly="True" />
-					<DataGridTextColumn Foreground="DarkOrange" MaxWidth="79" Binding="{Binding TotalSumm}" IsReadOnly="True">
-						<DataGridTextColumn.Header>
-							<TextBlock  TextAlignment="Center">Сумма<LineBreak/>накладной</TextBlock>
-						</DataGridTextColumn.Header>
-					</DataGridTextColumn>
-				</DataGrid.Columns>
+						<DataGridTextColumn MaxWidth="79" Binding="{Binding Overhead}" IsReadOnly="True">
+							<DataGridTextColumn.Header>
+								<TextBlock TextAlignment="Center">Накладные<LineBreak/>расходы</TextBlock>
+							</DataGridTextColumn.Header>
+						</DataGridTextColumn>
+						<DataGridTextColumn Header="Сотрудник" Binding="{Binding EmployeeID}" IsReadOnly="True" />
+						<DataGridTextColumn Foreground="DarkOrange" MaxWidth="79" Binding="{Binding TotalSumm}" IsReadOnly="True">
+							<DataGridTextColumn.Header>
+								<TextBlock  TextAlignment="Center">Сумма<LineBreak/>накладной</TextBlock>
+							</DataGridTextColumn.Header>
+						</DataGridTextColumn>
+					</DataGrid.Columns>
 
-			</DataGrid>
-		</ScrollViewer>
+				</DataGrid>
+			</ScrollViewer>
 
-	</DockPanel>
+		</DockPanel>
 
 		<DockPanel  Name="AddNewOrderDockPanel"  KeyDown="AddNewOrderDockPanel_KeyDown" Grid.Row="1">
 			<StackPanel DockPanel.Dock="Top" >
-				<Label  FontSize="18" HorizontalContentAlignment="Center">Добавляем новую приходную накладную (F2-добавить продукты)</Label>
+				<Label  FontSize="18" HorizontalContentAlignment="Center">Приходная накладная (F2-добавить продукты,  Esc-выйти не сохраняя)</Label>
 				<DockPanel Margin="5,0,0,5" >
 					<WrapPanel HorizontalAlignment="Left">
-					<Label FontSize="12">Дата накладной</Label>
-					<TextBox Name="CurrentOrderDatePicker" IsReadOnly="True" HorizontalContentAlignment="Center" Width="181" FontSize="16" ></TextBox>
+						<Label FontSize="12">Дата накладной</Label>
+						<TextBox Name="CurrentOrderDatePicker" IsReadOnly="True" HorizontalContentAlignment="Center" Width="181" FontSize="16" ></TextBox>
 					</WrapPanel>
 					<WrapPanel HorizontalAlignment="Right" Margin="0,0,10,0">
-					<Label FontSize="12">Поставщик</Label>
-					<TextBox Name="CurrentSupplier" HorizontalContentAlignment="Center"  Width="216" FontSize="12" IsReadOnly="True"></TextBox>
+						<Label FontSize="12">Поставщик</Label>
+						<TextBox Name="CurrentSupplier" HorizontalContentAlignment="Center"  Width="216" FontSize="12" IsReadOnly="True"></TextBox>
 					</WrapPanel>
 				</DockPanel>
 				<DockPanel Margin="5,0,0,5">
 					<WrapPanel HorizontalAlignment="Left">
-					<Label FontSize="12">Номер накладной</Label>
-					<TextBox Name="CurrentOrderNumberTextBox" IsReadOnly="True" HorizontalContentAlignment="Center" Width="68" FontSize="12" ></TextBox>
+						<Label FontSize="12">Номер накладной</Label>
+						<TextBox Name="CurrentOrderNumberTextBox" IsReadOnly="True" HorizontalContentAlignment="Center" Width="68" FontSize="12" ></TextBox>
 					</WrapPanel>
 					<WrapPanel HorizontalAlignment="Right" Margin="0,0,10,0">
-							<Label FontSize="12">Номер накладной поставщика</Label>
-					<TextBox Name="CurrentOrderNumberAtSupplierTextBox" IsReadOnly="True" HorizontalContentAlignment="Center"  Width="212" FontSize="12" ></TextBox>
+						<Label FontSize="12">Номер накладной поставщика</Label>
+						<TextBox Name="CurrentOrderNumberAtSupplierTextBox" IsReadOnly="True" HorizontalContentAlignment="Center"  Width="212" FontSize="12" ></TextBox>
 					</WrapPanel>
 				</DockPanel>
 				<DockPanel Margin="5,0,0,5" >
 					<WrapPanel HorizontalAlignment="Left">
-					<Label FontSize="12">Дата оплаты</Label>
-					<TextBox Name="CurrentPayDayTextBox" IsReadOnly="True" HorizontalContentAlignment="Center" Width="106" FontSize="12" ></TextBox>
+						<Label FontSize="12">Дата оплаты</Label>
+						<TextBox Name="CurrentPayDayTextBox" IsReadOnly="True" HorizontalContentAlignment="Center" Width="106" FontSize="12" ></TextBox>
 					</WrapPanel>
 					<WrapPanel HorizontalAlignment="Right" Margin="0,0,10,0">
 						<Label FontSize="12">Форма накладной</Label>
@@ -137,12 +137,18 @@
 						<Label FontSize="12">Состояние оплаты</Label>
 						<TextBox Name="PaymentStatusTextBox" FontSize="12" IsReadOnly="True" Margin="0,0,0,0" Width="91" HorizontalContentAlignment="Center" >Оплачено?</TextBox>
 					</WrapPanel>
+
 				</DockPanel>
+				<WrapPanel HorizontalAlignment="Right" Margin="0,0,10,0">
+					<Label FontSize="12">Сумма накладной</Label>
+					<TextBox Name="SummOfInvoiceTextBox" FontSize="16" IsReadOnly="True" Margin="0,0,10,0" Width="91" HorizontalContentAlignment="Center" ></TextBox>
+					<Button Name="SaveInvoiceButton"  Background="IndianRed" Click="SaveInvoiceButton_Click" FontSize="12">Сохранить накладную (F5)</Button>
+				</WrapPanel>
 			</StackPanel>
 
 			<ScrollViewer  Margin="5">
 
-				<DataGrid Name="InvoiceNewDataGrid"  ItemsSource="{Binding}" Background="#FFF9F996" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="False" >
+				<DataGrid Name="InvoiceNewDataGrid"  ItemsSource="{Binding}" Background="#FFF9F996" HorizontalContentAlignment="Right" CanUserAddRows="False" AutoGenerateColumns="False" FontSize="14" IsReadOnly="False" >
 					<DataGrid.ContextMenu >
 						<ContextMenu Background="#FF857E7B" Width="150" HorizontalContentAlignment="Center">
 							<TextBlock Name="o" MouseDown="ChengeTextBlock_MouseDown" FontSize="12"  Foreground="#FFF0E0E0">Изменить</TextBlock>
@@ -151,7 +157,7 @@
 
 					</DataGrid.ContextMenu>
 					<DataGrid.Columns >
-						<DataGridTextColumn MaxWidth="72" Binding="{Binding Barcode}" IsReadOnly="True">
+						<DataGridTextColumn MaxWidth="85" Binding="{Binding Barcode}" IsReadOnly="True">
 							<DataGridTextColumn.Header>
 								<TextBlock TextAlignment="Center">Штрих<LineBreak/>код</TextBlock>
 							</DataGridTextColumn.Header>
@@ -162,7 +168,7 @@
 								<TextBlock TextAlignment="Center">Код<LineBreak/>группы</TextBlock>
 							</DataGridTextColumn.Header>
 						</DataGridTextColumn>
-						<DataGridTextColumn MaxWidth="79" Binding="{Binding GroupTitle}" IsReadOnly="True">
+						<DataGridTextColumn MaxWidth="120" Binding="{Binding GroupTitle}" IsReadOnly="True">
 							<DataGridTextColumn.Header>
 								<TextBlock TextAlignment="Center">Название<LineBreak/>группы</TextBlock>
 							</DataGridTextColumn.Header>
@@ -176,15 +182,15 @@
 
 						<DataGridTextColumn Header="Название товара" Binding="{Binding ProductTitle}" IsReadOnly="True" />
 
-						<DataGridTextColumn MaxWidth="79" Header="Кол-во" Binding="{Binding ProductTitle}" IsReadOnly="True" />
+						<DataGridTextColumn MaxWidth="79" Header="Кол-во" Binding="{Binding Quantity}" IsReadOnly="True" />
 
-						<DataGridTextColumn MaxWidth="79" Binding="{Binding ProductID}" IsReadOnly="True">
+						<DataGridTextColumn MaxWidth="79" Binding="{Binding Price}" IsReadOnly="True">
 							<DataGridTextColumn.Header>
 								<TextBlock TextAlignment="Center">Цена <LineBreak/>поставщика</TextBlock>
 							</DataGridTextColumn.Header>
 						</DataGridTextColumn>
 
-						<DataGridTextColumn Header="Сумма" Binding="{Binding ProductTitle}" IsReadOnly="True" />
+						<DataGridTextColumn Header="Сумма" Binding="{Binding SummOfPosition}" IsReadOnly="True" />
 
 
 					</DataGrid.Columns>
@@ -194,45 +200,47 @@
 
 		</DockPanel>
 
-		<DockPanel  Name="AddNewProductInOrderDockPanel"  KeyDown="AddNewOrderDockPanel_KeyDown" Grid.Row="2" >
+		<DockPanel  Name="AddNewProductInOrderDockPanel"  KeyDown="AddNewProductInOrderDockPanel_KeyDown" Grid.Row="2" >
 			<StackPanel DockPanel.Dock="Top" >
 				<Label  FontSize="18" HorizontalContentAlignment="Center">Добавляем товар в накладную (Enter-дальше, Esc-отмена, F1-справочники)</Label>
 				<DockPanel Margin="5,0,0,5" >
 					<WrapPanel Margin="50,0,0,0" HorizontalAlignment="Left">
-					<Label  FontSize="12">Штрих-код</Label>
-					<TextBox Margin="3,0,0,0" Name="BarcodeTextBox"  HorizontalContentAlignment="Center" Width="181" FontSize="16" ></TextBox>
+						<Label  FontSize="12">Штрих-код</Label>
+						<TextBox Margin="3,0,0,0" Name="BarcodeTextBox" TabIndex="0" KeyDown="BarcodeTextBox_KeyDown"  HorizontalContentAlignment="Center" Width="181" FontSize="16" ></TextBox>
 					</WrapPanel>
 					<WrapPanel HorizontalAlignment="Right" Margin="0,0,70,0">
-					<Label Margin="160,0,0,0" FontSize="12">Цена</Label>
-					<TextBox Name="PriceTextBox" HorizontalContentAlignment="Center"  Width="113" FontSize="12" ></TextBox>
+						<Label Margin="160,0,0,0" FontSize="12">Цена</Label>
+						<TextBox Name="PriceTextBox" KeyDown="PriceTextBox_KeyDown" TabIndex="3"  HorizontalContentAlignment="Center"  Width="113" FontSize="12" ></TextBox>
 					</WrapPanel>
 				</DockPanel>
 				<DockPanel Margin="5,0,0,5" >
 					<WrapPanel  Margin="50,0,0,0" HorizontalAlignment="Left">
-					<Label  FontSize="12">Группа</Label>
-					<TextBox Margin="24,0,0,0" Name="r" IsReadOnly="True" HorizontalContentAlignment="Center" Width="68" FontSize="12" ></TextBox>
+						<Label  FontSize="12">Группа</Label>
+						<TextBox Margin="24,0,0,0" Name="GroupTextBox" TabIndex="1" KeyDown="GroupTextBox_KeyDown"  HorizontalContentAlignment="Center" Width="68" FontSize="12" ></TextBox>
 					</WrapPanel>
 
-					<Label Name="GroupTitleLabel" FontSize="12" Width="165"></Label>
+					<Label Name="GroupTitleLabel" FontSize="12" Width="165" Foreground="#FF8D3818">Выбери группу</Label>
 					<WrapPanel HorizontalAlignment="Right" Margin="0,0,70,0">
-					<Label FontSize="12">Количество в накладной</Label>
-					<TextBox Name="QuantityTextBox" HorizontalContentAlignment="Center"  Width="114" FontSize="12" ></TextBox>
+						<Label FontSize="12">Количество в накладной</Label>
+						<TextBox Name="QuantityTextBox" KeyDown="QuantityTextBox_KeyDown"  TabIndex="4"  HorizontalContentAlignment="Center"  Width="114" FontSize="12" ></TextBox>
 					</WrapPanel>
 				</DockPanel>
+
 				<DockPanel Margin="5,0,0,5" HorizontalAlignment="Stretch">
 					<WrapPanel Margin="50,0,0,0" HorizontalAlignment="Left">
-					<Label FontSize="12">Код товара</Label>
-					<TextBox Name="p" IsReadOnly="True" HorizontalContentAlignment="Center" Width="69" FontSize="12" ></TextBox>
-					<Label Name="ProductTitleLabel" FontSize="12" Width="263"></Label>
+						<Label FontSize="12">Код товара</Label>
+						<TextBox Name="ProductIDTextBox" KeyDown="ProductIDTextBox_KeyDown" TabIndex="2"  HorizontalContentAlignment="Center" Width="69" FontSize="12" ></TextBox>
+						<Label Name="ProductTitleLabel" FontSize="12" Width="263" Foreground="#FF8D3818">Выбери продукт</Label>
 					</WrapPanel>
+
 					<WrapPanel HorizontalAlignment="Right" Margin="0,0,70,0">
-					<Label FontSize="12">Сумма:</Label>
-					<TextBox FontSize="12" IsReadOnly="True"  Width="114" HorizontalContentAlignment="Center" ></TextBox>
+						<Label FontSize="12">Сумма:</Label>
+						<TextBox Name="SummTextBox" KeyDown="SummTextBox_KeyDown" FontSize="12" IsReadOnly="True"  Width="114" HorizontalContentAlignment="Center" ></TextBox>
 					</WrapPanel>
 				</DockPanel>
 			</StackPanel>
 
-			
+
 
 		</DockPanel>
 	</Grid>

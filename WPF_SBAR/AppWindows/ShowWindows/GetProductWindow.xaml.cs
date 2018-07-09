@@ -14,27 +14,32 @@ using System.Windows.Shapes;
 
 namespace WPF_SBAR.AppWindows.ShowWindows {
     /// <summary>
-    /// Логика взаимодействия для GetSupplierWindow.xaml
+    /// Логика взаимодействия для GetProductWindow.xaml
     /// </summary>
-    public partial class GetSupplierWindow : Window {
+    public partial class GetProductWindow : Window {
+        public Products currentProduct;
+        
+        ShowProducts spWindow;
 
-        ShowSupliersWindow ssw;
-        public Suppliers currentSupplier;
-
-        public GetSupplierWindow() {
+        public GetProductWindow() {
             InitializeComponent();
-            ssw = new ShowSupliersWindow();
-            this.Container.Content = ssw.Content;
-        }//GetSupplierWindow
+        }
 
+        public GetProductWindow(short gp) {
+            
+            InitializeComponent();
+            
+            spWindow = new ShowProducts(gp);
+            this.Container.Content = spWindow.Content;
+        }
         private void CencelButton_Click(object sender, RoutedEventArgs e) {
             this.DialogResult = false;
         }//CencelButton_Click
 
         private void OkButton_Click(object sender, RoutedEventArgs e) {
-            this.currentSupplier = this.ssw.SuppliersDataGrid.SelectedItem as Suppliers;
-            if(this.currentSupplier == null) {
-                MessageBox.Show("Выберите поставщика!");
+            this.currentProduct = this.spWindow.ProductDataGrid.SelectedItem as Products;
+            if (this.currentProduct == null) {
+                MessageBox.Show("Выберите продукт!");
                 return;
             }//if
             this.DialogResult = true;
@@ -54,7 +59,5 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
                     break;
             }
         }//DockPanel_KeyDown
-
-       
     }
 }
