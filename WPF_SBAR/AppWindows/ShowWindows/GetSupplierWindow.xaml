@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_SBAR.AppWindows.ShowWindows"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
-        Title="Выбор поставщика" Height="400" Width="600">
-	<DockPanel Background="#FFD1D1D1" KeyDown="DockPanel_KeyDown">
+        Title="Выбор поставщика" KeyDown="DockPanel_KeyDown" Height="400" Width="600">
+	<DockPanel Background="#FFD1D1D1" >
 		<WrapPanel DockPanel.Dock="Bottom">
 			<Button Name="OkButton"	Click="OkButton_Click" FontSize="16" Margin="50,10,150,10" Width="120" >Выбрать</Button>
 			<Button Name="CencelButton" Click="CencelButton_Click" FontSize="16" Margin="0,10,50,10" Width="120">Отмена</Button>

@@ -200,7 +200,7 @@
 
 		</DockPanel>
 
-		<DockPanel  Name="AddNewProductInOrderDockPanel"  KeyDown="AddNewOrderDockPanel_KeyDown" Grid.Row="2" >
+		<DockPanel  Name="AddNewProductInOrderDockPanel"  KeyDown="AddNewProductInOrderDockPanel_KeyDown" Grid.Row="2" >
 			<StackPanel DockPanel.Dock="Top" >
 				<Label  FontSize="18" HorizontalContentAlignment="Center">Добавляем товар в накладную (Enter-дальше, Esc-отмена, F1-справочники)</Label>
 				<DockPanel Margin="5,0,0,5" >

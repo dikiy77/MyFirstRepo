@@ -179,17 +179,30 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
                         this.PriceTextBox.Text = "";
                         this.QuantityTextBox.Text = "";
                         this.SummTextBox.Text = "";
-                        this.AddNewProductRow.Height = new GridLength(0);
+
+                        this.MainOrdersShowRow.Height = this.AddNewOrderRow.Height;
+                        this.AddNewOrderRow.Height = new GridLength(0);
+                        AddNewProductRow.Height = new GridLength(0);
                     }
                     break;
-               
 
+                case Key.F5: {
+                        SaveInvoiceButton_Click(null, null);
+                    }
+                    break;
+
+                case Key.F2: {
+                        AddNewProductRow.Height = new GridLength(130);
+                    }
+                    break;
             }
         }
 
         private void BarcodeTextBox_KeyDown(object sender, KeyEventArgs e) {
             switch (e.Key) {
                 case Key.Enter: {
+                        if (BarcodeTextBox.Text.Trim().Length == 0)
+                            BarcodeTextBox.Text = "Undefined";
                         GroupTextBox.Focus();
                     } break;
                 default: break;
@@ -210,6 +223,10 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
                         try {
                             using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
                                 var group = context.Groups.FirstOrDefault(g => g.groupID == groupID);
+                                if (group == null) {
+                                    this.GroupTextBox.Focus();
+                                    return;
+                                }//if
                                 this.GroupTitleLabel.Content = (object)group.groupTitle;
                             }//using
                             ProductIDTextBox.Focus();
@@ -225,18 +242,19 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
                         ShowGroupWindow sw = new ShowGroupWindow();
                         if (sw.ShowDialog() == true) {
                             this.GroupTextBox.Text = sw.number.ToString();
-                        }//if
-                        try {
-                            using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
-                                var group = context.Groups.FirstOrDefault(g => g.groupID == sw.number);
-                                this.GroupTitleLabel.Content = (object)group.groupTitle;
-                            }//using
-                            ProductIDTextBox.Focus();
-                        }
-                        catch (Exception ex) {
 
-                            MessageBox.Show(ex.Message);
-                        }
+                            try {
+                                using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                                    var group = context.Groups.FirstOrDefault(g => g.groupID == sw.number);
+                                    this.GroupTitleLabel.Content = (object)group.groupTitle;
+                                }//using
+                                ProductIDTextBox.Focus();
+                            }
+                            catch (Exception ex) {
+
+                                MessageBox.Show(ex.Message);
+                            }
+                        }//if
                     }
                     break;
                 default: break;
@@ -277,7 +295,7 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
                         GetProductWindow gpw = new GetProductWindow(groupID);
                         if (gpw.ShowDialog() == true) {
                             this.ProductIDTextBox.Text = gpw.currentProduct.productID.ToString();
-                        }//if
+                        
                         try {
                             using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
                                 this.ProductTitleLabel.Content = (object)context.Products.FirstOrDefault(g => g.productID == gpw.currentProduct.productID).productTitle;
@@ -288,6 +306,7 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
 
                             MessageBox.Show(ex.Message);
                         }
+                        }//if
                     }
                     break;
                 default: break;
@@ -413,6 +432,26 @@ namespace WPF_SBAR.AppWindows.OrdersWindows {
                 MessageBox.Show(ex.Message);
             }//catch
            
+        }
+
+        private void AddNewProductInOrderDockPanel_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+
+                case Key.Escape: {
+                        this.BarcodeTextBox.Text = "";
+                        this.GroupTextBox.Text = "";
+                        this.GroupTitleLabel.Content = "Выбери группу";
+                        this.ProductIDTextBox.Text = "";
+                        this.ProductTitleLabel.Content = "Выбери продукт";
+                        this.PriceTextBox.Text = "";
+                        this.QuantityTextBox.Text = "";
+                        this.SummTextBox.Text = "";
+                        this.AddNewProductRow.Height = new GridLength(0);
+                    }
+                    break;
+
+                
+            }
         }
     }
 }

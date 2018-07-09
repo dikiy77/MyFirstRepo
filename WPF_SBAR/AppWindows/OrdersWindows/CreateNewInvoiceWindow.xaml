@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_SBAR.AppWindows.OrdersWindows"
         mc:Ignorable="d" ResizeMode="NoResize"
-        Title="Новая приходная накладная" Loaded="Window_Loaded" Height="226.53" Width="602.041" Background="#FFD1D1D1">
+        Title="Новая приходная накладная" KeyDown="MainDockPanel_KeyDown"  Loaded="Window_Loaded" Height="226.53" Width="602.041" Background="#FFD1D1D1">
 	<Grid>
 
-		<DockPanel Name="MainDockPanel"  KeyDown="MainDockPanel_KeyDown" Grid.Row="0" Grid.ColumnSpan="5">
+		<DockPanel Name="MainDockPanel"  Grid.Row="0" Grid.ColumnSpan="5">
 			<StackPanel >
 				<WrapPanel Margin="5,20,0,10">
 					<Label FontSize="14">Дата накладной</Label>

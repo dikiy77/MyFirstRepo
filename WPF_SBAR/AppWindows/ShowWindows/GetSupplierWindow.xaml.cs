@@ -54,5 +54,7 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
                     break;
             }
         }//DockPanel_KeyDown
+
+       
     }
 }

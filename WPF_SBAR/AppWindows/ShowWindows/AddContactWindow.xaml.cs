@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPF_SBAR.Entity;
 
 namespace WPF_SBAR.AppWindows.ShowWindows {
     /// <summary>
@@ -25,7 +26,7 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
             InitializeComponent();
             using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
                 try {
-
+                    this.contactType = new List<ContactType>();
                     contactType.AddRange(context.ContactType.ToList());
 
                     ContactTypeComboBox.ItemsSource = contactType.Select(s => s.contactType1).ToList();
@@ -42,11 +43,14 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
 
         public AddContactWindow(Suppliers item) {
             InitializeComponent();
+
+            this.contactType = new List<ContactType>();
+
             EmployeerTextBox.IsEnabled = false;
-            BrowseEmployeerButton.IsEnabled = false;
+           // BrowseEmployeerButton.IsEnabled = false;
             SupplierTextBox.IsEnabled = false;
             SupplierTextBox.Text = item.supplierID.ToString();
-            BrowseSupplierButton.IsEnabled = false;
+            //BrowseSupplierButton.IsEnabled = false;
 
             SupplierCommentTextBox.Text = $"{item.companyName} : {item.contactName}";
             using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
@@ -69,6 +73,44 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
 
         public AddContactWindow(Employees item) {
             InitializeComponent();
+        }
+
+        public AddContactWindow(SimpleContact item) {
+            InitializeComponent();
+            this.contactType = new List<ContactType>();
+
+            using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                try {
+
+                    contactType.AddRange(context.ContactType.ToList());
+
+                    ContactTypeComboBox.ItemsSource = contactType.Select(s => s.contactType1).ToList();
+
+                    ContactTypeComboBox.SelectedItem = item.contactType;
+                    ContactTypeComboBox.IsEnabled = false;
+                    Contacts contact = context.Contacts.FirstOrDefault(c => c.ContactID == item.ContactID);
+
+                    if (contact == null) this.DialogResult = false;
+                    
+                    EmployeerTextBox.Text = contact.employeeID == null ? "" : contact.employeeID.ToString();
+                    EmployeerTextBox.IsEnabled = false;
+
+                    SupplierTextBox.Text = contact.supplierID == null ? "" : contact.supplierID.ToString();
+                    SupplierTextBox.IsEnabled = false;
+
+                    DescriptionTextBox.Text = item.description;
+
+                    ContactTextBox.Text = item.contact;
+
+                    OKButton.Content = "Сохранить";
+                }//try
+                catch (Exception ex) {
+
+                    MessageBox.Show(ex.Message);
+                }//catch
+
+            }// using
+
         }
 
         private void BrowseSupplierButton_Click(object sender, RoutedEventArgs e) {
@@ -121,8 +163,38 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
             this.DialogResult = false;
         }
 
-        private void ContactTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+        private void EmployeerTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if(int.TryParse(EmployeerTextBox.Text.Trim(), out int employeerID)) {
+                using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                    try {
+                        Employees empl = context.Employees.FirstOrDefault(em => em.employeeID == employeerID);
+                        if (empl == null) return;
 
+                        EmployeerCommentTextBox.Text = empl.lastName + " " + empl.firstName;
+                    }//try
+                    catch (Exception ex) {
+
+                        MessageBox.Show(ex.Message);
+                    }//catch
+                }//using
+            }//if
+        }//EmployeerTextBox_TextChanged
+
+        private void SupplierTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (int.TryParse(SupplierTextBox.Text.Trim(), out int supID)) {
+                using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                    try {
+                        Suppliers supl = context.Suppliers.FirstOrDefault(s => s.supplierID == supID);
+                        if (supl == null) return;
+
+                        SupplierCommentTextBox.Text = supl.companyName + " " + supl.contactName;
+                    }//try
+                    catch (Exception ex) {
+
+                        MessageBox.Show(ex.Message);
+                    }//catch
+                }//using
+            }//if
         }
-    }
-}
+    }//AddContactWindow
+}//WPF_SBAR.AppWindows.ShowWindows

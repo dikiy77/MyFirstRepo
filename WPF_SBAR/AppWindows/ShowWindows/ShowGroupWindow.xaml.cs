@@ -39,5 +39,23 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
         private void Cancel_Click(object sender, RoutedEventArgs e) {
             this.DialogResult = false;
         }
+
+        private void DockPanel_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+                case Key.Enter: {
+                        OK_Click(null, null);
+
+                    }
+                    break;
+
+                case Key.Escape: {
+                        Cancel_Click(null, null);
+
+                    }
+                    break;
+
+                default: break;
+            }//switch
+        }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 using WPF_SBAR.Entity;
 
@@ -222,19 +223,120 @@ namespace WPF_SBAR.AppWindows.ShowWindows {
         }
 
         private void SerchByCompanyNameTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (contactsList == null) return;
+            try {
 
-        }
+                string code = (SerchByCompanyNameTextBox.Text).Trim();
+                if (code.Length > 0) {
+                    string pattern = $@"\S?{code}\S?";
+
+                    Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                    List<SimpleContact> temp = (contactsList.Where((s) => (regex.IsMatch(s.companyName)))).ToList();
+                    ContactsDataGrid.ItemsSource = null;
+                    ContactsDataGrid.Items.Clear();
+                    ContactsDataGrid.ItemsSource = temp;
+                }
+                else {
+                    ContactsDataGrid.ItemsSource = null;
+                    ContactsDataGrid.Items.Clear();
+                    ContactsDataGrid.ItemsSource = contactsList;
+                }//else
+
+
+            }//try
+            catch (Exception ex) {
+
+                MessageBox.Show(ex.Message);
+            }//catch
+        }//SerchByCompanyNameTextBox_TextChanged
 
         private void SerchByEmployeeLastNameTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (contactsList == null) return;
+            try {
 
-        }
+                string code = (SerchByEmployeeLastNameTextBox.Text).Trim();
+                if (code.Length > 0) {
+                    string pattern = $@"\S?{code}\S?";
+
+                    Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                    List<SimpleContact> temp = (contactsList.Where((s) => (regex.IsMatch(s.lastName)))).ToList();
+                    ContactsDataGrid.ItemsSource = null;
+                    ContactsDataGrid.Items.Clear();
+                    ContactsDataGrid.ItemsSource = temp;
+                }
+                else {
+                    ContactsDataGrid.ItemsSource = null;
+                    ContactsDataGrid.Items.Clear();
+                    ContactsDataGrid.ItemsSource = contactsList;
+                }//else
+
+
+            }//try
+            catch (Exception ex) {
+
+                MessageBox.Show(ex.Message);
+            }//catch
+        }//SerchByEmployeeLastNameTextBox_TextChanged
 
         private void SerchByContactVelueTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            if (contactsList == null) return;
+            try {
 
-        }
+                string code = (SerchByContactVelueTextBox.Text).Trim();
+                if (code.Length > 0) {
+                    string pattern = $@"\S?{code}\S?";
+
+                    Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                    List<SimpleContact> temp = (contactsList.Where((s) => (regex.IsMatch(s.contact)))).ToList();
+                    ContactsDataGrid.ItemsSource = null;
+                    ContactsDataGrid.Items.Clear();
+                    ContactsDataGrid.ItemsSource = temp;
+                }
+                else {
+                    ContactsDataGrid.ItemsSource = null;
+                    ContactsDataGrid.Items.Clear();
+                    ContactsDataGrid.ItemsSource = contactsList;
+                }//else
+
+
+            }//try
+            catch (Exception ex) {
+
+                MessageBox.Show(ex.Message);
+            }//catch
+        }//SerchByContactVelueTextBox_TextChanged
 
         private void ChengeContactTextBlock_MouseDown(object sender, MouseButtonEventArgs e) {
+            if (ContactsDataGrid.SelectedItem is SimpleContact contact) {
+                AddContactWindow acw = new AddContactWindow(contact);
+                if (acw.ShowDialog() == true) {
+                    Contacts newcont = acw.newContact;
+                        if(newcont.contact != contact.contact || newcont.description != contact.description) {
+                        try {
+                            using (SmallBusinessDBEntities context = new SmallBusinessDBEntities()) {
+                                var ppp = context.Contacts.FirstOrDefault(s => s.ContactID == contact.ContactID);
 
+                                ppp.contact = newcont.contact;
+                                ppp.description = newcont.description;
+                                
+                                context.SaveChanges();
+                                MessageBox.Show("Изменения сохранены");
+                                
+                                contact.contact = newcont.contact; ;
+                                contact.description = newcont.description;
+
+                                ContactsDataGrid.Items.Refresh();
+                                
+                            }
+                        }
+                        catch (Exception ex) {
+
+                            MessageBox.Show(ex.Message);
+                        }
+                    }//if
+
+                }//if
+            }//if
         }
 
         private void Window_Closed(object sender, EventArgs e) {
